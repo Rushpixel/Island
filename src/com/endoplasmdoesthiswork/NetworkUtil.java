@@ -36,7 +36,7 @@ public class NetworkUtil {
 			while ((lastIN = c.receive(b)) != null) {
 				String in = new String(b.array()).trim();
 				String s[] = in.split("%");
-				//System.out.println("Recieved UDP " + in);
+				System.out.println("Recieved UDP " + in);
 				if (s.length > 1) {
 					for (int i = 1; i < s.length; i++) {
 						messagelist.add(new Message(s[0] + "%" + s[i], (InetSocketAddress) lastIN));

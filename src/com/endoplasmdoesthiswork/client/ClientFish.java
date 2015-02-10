@@ -52,7 +52,7 @@ public class ClientFish extends StateNode{
 		rpos = VectorMath.add(rpos, vel);
 		rpos.addX((pos.getX() - rpos.getX()) * 0.5f);
 		rpos.addY((pos.getY() - rpos.getY()) * 0.5f);
-		if(MathUtil.distance(rpos.getX(), rpos.getY(), pos.getX(), pos.getY()) > 30){
+		if(MathUtil.distance(rpos.getX(), rpos.getY(), pos.getX(), pos.getY()) > 30){ 
 			rpos.setX(pos.getX());
 			rpos.setY(pos.getY());
 		}
