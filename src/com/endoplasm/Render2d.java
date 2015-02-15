@@ -1,16 +1,51 @@
 package com.endoplasm;
 
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.*;
 
 public class Render2d {
+	
+	public static void uniTriangle(float c1x, float c1y, float c2x, float c2y, float c3x, float c3y, float[] colour, TextureAsset tex, float texScale){
+		glPushMatrix();
+		{
+			Render.setColor(colour);
+			tex.TEX.bind();
+			glBegin(GL_TRIANGLES);
+			{
+				glTexCoord2f(c1x / texScale, c1y / texScale);
+				glVertex2f(c1x, c1y);
+				glTexCoord2f(c2x / texScale, c2y / texScale);
+				glVertex2f(c2x, c2y);
+				glTexCoord2f(c3x / texScale, c3y / texScale);
+				glVertex2f(c3x, c3y);
+			}
+			glEnd();
+		}
+		glPopMatrix();
+	}
+	
+	public static void uniSquare(float x, float y, float width, float height, float[] colour, TextureAsset tex, float texScale) {
+		glPushMatrix();
+		{
+			Render.setColor(colour);
+			tex.TEX.bind();
+			glBegin(GL_QUADS);
+			{
+				glTexCoord2f(x / texScale, y / texScale);
+				glVertex2f(x, y);
+				
+				glTexCoord2f(x / texScale, (y + height) / texScale);
+				glVertex2f(x, y + height);
+				
+				glTexCoord2f((x + width) / texScale, (y + height) / texScale);
+				glVertex2f(x + width, y + height);
+				
+				glTexCoord2f((x + width) / texScale, y / texScale);
+				glVertex2f(x + width, y);
+			}
+			glEnd();
+		}
+		glPopMatrix();
+	}
 
 	public static void square(float x, float y, float width, float height, float[] colour, TextureAsset tex) {
 		glPushMatrix();

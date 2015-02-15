@@ -23,7 +23,7 @@ public class Mask_Player extends StateNode{
 	
 	public Mask_Player(StateNode parent, String name){
 		super(parent, name);
-		this.pos = new Vertex2f(50, 50);
+		this.pos = new Vertex2f(0, 0);
 		step = pos;
 		vel = new Vertex2f(0, 0);
 	}

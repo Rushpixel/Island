@@ -45,7 +45,7 @@ public class Game extends GInit {
 	@Override
 	public void update() {
 		if(clientgraph != null && Client.connected){
-			camera.updateMouse();
+			camera.update();
 			Client.getPackets();
 			StateNode.updateFrom(clientgraph);
 		}
