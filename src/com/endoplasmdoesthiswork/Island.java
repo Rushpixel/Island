@@ -13,8 +13,8 @@ public class Island extends StateNode {
 	private Random r;
 	public int numBegin = 7;
 	public int numProccesses = 4;
-	public float minSliceSize = 100;
-	public float maxSliceSize = 800;
+	public float minSliceSize = 1000;
+	public float maxSliceSize = 8000;
 	public float minBeachSize = 50;
 	public int chunkDivide = 4;
 
@@ -191,7 +191,7 @@ public class Island extends StateNode {
 
 	@Override
 	public void render() {
-		Render2d.uniSquare(Game.camera.centre.getX() - Game.camera.horSize / 2, Game.camera.centre.getY() - Game.camera.verSize / 2, Game.camera.horSize, Game.camera.verSize, new float[] { 0.05f, 0.3f, 0.5f, 1 }, Endogen.SystemAssets.mask.BLANK, 16);
+		Render2d.uniSquare(Game.camera.centre.getX() - Game.camera.horSize / 2, Game.camera.centre.getY() - Game.camera.verSize / 2, Game.camera.horSize, Game.camera.verSize, new float[] { 0.05f, 0.15f, 0.2f, 1 }, Endogen.SystemAssets.mask.BLANK, 16);
 		int count = 0;
 		for (Triangle3f t : sand) {
 			if (RectangleMath.doCollide(t.a, t.b, Game.camera.a, Game.camera.b)) {

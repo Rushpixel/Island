@@ -28,7 +28,7 @@ public class Ocean extends StateNode{
 		}
 		if(currentPoint > highPoint - .01f) descending = true;
 		if(currentPoint < lowPoint + .01f) descending = false;
-		foamThickness = (currentPoint - lowPoint) * 10 * 20;
+		foamThickness = (currentPoint - lowPoint) * 10 * 5;
 	}
 	
 	@Override
@@ -49,12 +49,12 @@ public class Ocean extends StateNode{
 					MathUtil.getXSpeed(a1, waterLevel), MathUtil.getYSpeed(a1, waterLevel),
 					MathUtil.getXSpeed(a1, beachLength),MathUtil.getYSpeed(a1, beachLength),
 					MathUtil.getXSpeed(a2, nextBLength),MathUtil.getYSpeed(a2, nextBLength),
-					new float[]{ 0.1f, 0.7f, 0.8f, 1 }, Endogen.SystemAssets.mask.BLANK, 1);
+					new float[]{ 0.2f, 0.5f, 0.6f, 1 }, Endogen.SystemAssets.mask.BLANK, 1);
 			Render2d.uniTriangle(
 					MathUtil.getXSpeed(a1, waterLevel), MathUtil.getYSpeed(a1, waterLevel),
 					MathUtil.getXSpeed(a2, nextBLength),MathUtil.getYSpeed(a2, nextBLength),
 					MathUtil.getXSpeed(a2, nextWLevel),MathUtil.getYSpeed(a2, nextWLevel),
-					new float[]{ 0.1f, 0.7f, 0.8f, 1 }, Endogen.SystemAssets.mask.BLANK, 1);
+					new float[]{ 0.2f, 0.5f, 0.6f, 1 }, Endogen.SystemAssets.mask.BLANK, 1);
 			
 			//foam
 			float foamClose = waterLevel - foamThickness;
