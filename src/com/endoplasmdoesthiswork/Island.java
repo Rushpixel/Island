@@ -13,8 +13,8 @@ public class Island extends StateNode {
 	private Random r;
 	public int numBegin = 7;
 	public int numProccesses = 4;
-	public float minSliceSize = 1000;
-	public float maxSliceSize = 8000;
+	public float minSliceSize = 100;
+	public float maxSliceSize = 800;
 	public float minBeachSize = 50;
 	public int chunkDivide = 4;
 
