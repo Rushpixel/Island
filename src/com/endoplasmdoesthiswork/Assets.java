@@ -10,6 +10,7 @@ public class Assets extends AssetNodeGroup{
 	public TextureAsset HEAD_BASE0 = new TextureAsset(this, "/Resources/Textures/head_base0");
 	public TextureAsset GROUND_SAND = new TextureAsset(this, "/Resources/Textures/ground_sand");
 	public TextureAsset GROUND_GRASS = new TextureAsset(this, "/Resources/Textures/ground_grass");
+	public TextureAsset PALM_FROND = new TextureAsset(this, "/Resources/Textures/palm_frond");
 
 	public Assets() {
 		super(null);
@@ -18,6 +19,7 @@ public class Assets extends AssetNodeGroup{
 			HEAD_BASE0,
 			GROUND_SAND,
 			GROUND_GRASS,
+			PALM_FROND,
 		};
 	}
 	

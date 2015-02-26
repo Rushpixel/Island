@@ -37,5 +37,13 @@ public class Triangle3f {
 		b.setX(MathUtil.getMax(new float[]{c1.getX(), c2.getX(), c3.getX()}));
 		b.setY(MathUtil.getMax(new float[]{c1.getY(), c2.getY(), c3.getY()}));
 	}
+	
+	public float getArea(){
+		float s1 = MathUtil.distance(c1.getX(), c1.getY(), c2.getX(), c2.getY());
+		float s2 = MathUtil.distance(c2.getX(), c2.getY(), c3.getX(), c3.getY());
+		float s3 = MathUtil.distance(c3.getX(), c3.getY(), c1.getX(), c1.getY());
+		float s = (s1 + s2 + s3) / 2;
+		return (float) Math.sqrt(s * (s - s1) * (s - s2) * (s - s3));
+	}
 
 }

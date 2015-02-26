@@ -52,6 +52,7 @@ public class Server implements Runnable {
 		createSocket();
 		isServerRunning = true;
 
+		home.island.Generate(0);
 		serverLoop();
 		isServerRunning = false;
 	}
@@ -110,7 +111,9 @@ public class Server implements Runnable {
 			switch (m.HEADER) {
 			case "HELLO":
 				String arg = home.players.addPlayer(m.DATA, m.from);
-				NetworkUtil.Send(channel, m.from, "PERMISSION%" + arg);
+				if (arg.equals("")) {
+					NetworkUtil.Send(channel, m.from, "PERMISSION%" + home.island.seed + "%");
+				}
 				break;
 			}
 		}
@@ -121,7 +124,7 @@ public class Server implements Runnable {
 			if (sn instanceof ServerPlayer) {
 				String send = home.Transmit(((ServerPlayer) sn).address);
 				if (!send.equals("")) {
-					//System.out.println("About to send command " + send);
+					// System.out.println("About to send command " + send);
 					NetworkUtil.Send(channel, ((ServerPlayer) sn).address, "S%" + send);
 				}
 

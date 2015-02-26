@@ -17,7 +17,6 @@ public class ClientHome extends StateNode{
 	public ClientHome(){
 		super(null, "home");
 		island = new Island(this);
-		island.Generate(0);
 		children.add(island);
 		ocean = new Ocean(this);
 		children.add(ocean);
@@ -27,6 +26,7 @@ public class ClientHome extends StateNode{
 		children.add(players);
 		playerhome = new ClientPlayer(this, "PH");
 		children.add(playerhome);
+		
 	}
 	
 	public void update(){

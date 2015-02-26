@@ -27,9 +27,6 @@ public class Client {
 
 	public String Begin() {
 		String error = StartConnection();
-		if(error.equals("")){
-			error = downloadMap();
-		}
 		return error;
 	}
 
@@ -50,29 +47,39 @@ public class Client {
 	}
 
 	private String downloadMap() {
-		
-		return "";
+		try {
+			return "";
+		} catch (Exception e) {
+			System.err.println("Island generation failed");
+			e.printStackTrace();
+			return e.getMessage();
+		}
 	}
-	
-	public static void getPackets(){
+
+	public static void getPackets() {
 		Message[] incoming = NetworkUtil.Recieve(channel, 400);
 		if (incoming.length > 0) lastPacket = incoming[0].HEADER + "%" + incoming[0].DATA;
 		for (Message m : incoming) {
-			//System.out.println("[CLIENT] " + m.HEADER + "%" + m.DATA);
+			// System.out.println("[CLIENT] " + m.HEADER + "%" + m.DATA);
 			switch (m.HEADER) {
 			case "S": {
-				try{
-				String[] loccom = m.DATA.split(":")[0].split("@");
-				String args = m.DATA.split(":")[1];
-				Game.clientgraph.Recieve(loccom, args, m.from);
-				} catch(Exception e){
+				try {
+					String[] loccom = m.DATA.split(":")[0].split("@");
+					String args = m.DATA.split(":")[1];
+					Game.clientgraph.Recieve(loccom, args, m.from);
+				} catch (Exception e) {
 					System.err.println("Bad StateNode Packet with DATA: " + m.DATA);
 					e.printStackTrace();
 				}
 				break;
 			}
-			case "PERMISSION":{
-				connected = true;
+			case "PERMISSION": {
+				try {
+					connected = true;
+					Game.clientgraph.island.Generate(Long.parseLong(m.DATA));
+				} catch (Exception e) {
+					System.err.println("Bad Permission sent by server");
+				}
 			}
 			}
 		}

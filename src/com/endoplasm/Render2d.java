@@ -4,6 +4,10 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Render2d {
 	
+	public static void Limb(Vertex2f pos, Vertex2f[] nodes, float[] widths, Vertex2f[] UVs, TextureAsset tex, float[] colour){
+	
+	}
+	
 	public static void uniTriangle(float c1x, float c1y, float c2x, float c2y, float c3x, float c3y, float[] colour, TextureAsset tex, float texScale){
 		glPushMatrix();
 		{

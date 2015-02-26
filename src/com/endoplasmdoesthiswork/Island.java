@@ -8,8 +8,13 @@ import com.endoplasm.MathUtil;
 import com.endoplasm.RectangleMath;
 import com.endoplasm.Render2d;
 import com.endoplasm.Vertex2f;
+import com.endoplasmdoesthiswork.client.ClientTreeList;
 
 public class Island extends StateNode {
+	
+	public ClientTreeList treelist;
+	
+	public long seed;
 	private Random r;
 	public int numBegin = 7;
 	public int numProccesses = 4;
@@ -17,18 +22,24 @@ public class Island extends StateNode {
 	public float maxSliceSize = 800;
 	public float minBeachSize = 50;
 	public int chunkDivide = 4;
+	public float treesPerUnit = 1.5f / 10000f;
 
 	public float sidelengths[];
 	public float beachlengths[];
 	public Triangle3f[] sand;
 	public Triangle3f[] grass;
+	
+	public boolean finishedGeneration = false;
 
 	public Island(StateNode parent) {
 		super(parent, "I");
+		treelist = new ClientTreeList(this);
+		children.add(treelist);
 	}
 
 	public void Generate(long seed) {
-		r = new Random();
+		this.seed = seed;
+		r = new Random(seed);
 
 		// generate random sidelengths
 		sidelengths = new float[numBegin];
@@ -101,6 +112,22 @@ public class Island extends StateNode {
 				sand[i * 2 + 1] = new Triangle3f(c1, c2, c3);
 			}
 		}
+		
+		// gen trees on grass
+		for(Triangle3f t: grass){
+			float area = t.getArea();
+			int numTrees = r.nextInt((int) Math.ceil(area * treesPerUnit));
+			//System.err.println("area = " + area);
+			for(int i = 0; i < numTrees; i++){
+				Vertex2f pos = new Vertex2f(0,0);
+				float r1 = r.nextFloat();
+				float r2 = r.nextFloat();
+				pos.setX((float) ((1 - Math.sqrt(r1)) * t.c1.getX() + (Math.sqrt(r1) * (1 - r2)) * t.c2.getX() + (Math.sqrt(r1) * r2) * t.c3.getX()));
+				pos.setY((float) ((1 - Math.sqrt(r1)) * t.c1.getY() + (Math.sqrt(r1) * (1 - r2)) * t.c2.getY() + (Math.sqrt(r1) * r2) * t.c3.getY()));
+				long treeseed = r.nextLong();
+				treelist.newTree(pos, treeseed);
+			}
+		}
 
 		// breakup grass to chunks
 		grass = breakup(grass, chunkDivide);
@@ -108,7 +135,8 @@ public class Island extends StateNode {
 		// breakup sand to chunks
 		sand = breakup(sand, chunkDivide / 2);
 
-		System.out.println("Finished generation with " + grass.length + " chunks of grass, and " + sand.length + " chunks of sand");
+		finishedGeneration = true;
+		System.out.println("Finished generation with " + grass.length + " chunks of grass, and " + sand.length + " chunks of sand, with " + treelist.children.size() + " trees");
 	}
 
 	public static float[] tween(float[] array, int numProccesses, Random r) {
