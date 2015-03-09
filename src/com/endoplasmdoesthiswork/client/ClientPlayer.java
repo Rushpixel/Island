@@ -12,6 +12,9 @@ import com.endoplasmdoesthiswork.StateNode;
 
 public class ClientPlayer extends StateNode{
 	
+	public float Appendix_headRot = 0;
+	public Vertex2f Appendix_Step = new Vertex2f(0,0);
+	
 	public Mask_Player mask;
 	
 	public float baseStepSpeed = 15f;
@@ -25,6 +28,21 @@ public class ClientPlayer extends StateNode{
 	@Override
 	public void set(String command, String args, InetSocketAddress from) {
 		
+	}
+	
+	@Override
+	public String getTransmission(InetSocketAddress to) {
+		if(Math.abs(MathUtil.getAngleBetween(Appendix_headRot, mask.headAngle)) > 10){
+			Appendix_headRot = mask.headAngle;
+			return "P@" + Client.PLAYER_NAME + "@ROT:" + MathUtil.reduce(mask.headAngle, 2);
+		}
+		if(Appendix_Step.getX() != mask.step.getX() || Appendix_Step.getY() != mask.step.getY()){
+			Appendix_Step.setX(mask.step.getX());
+			Appendix_Step.setY(mask.step.getY());
+			
+			return "P@" + Client.PLAYER_NAME + "@STEP:" + MathUtil.reduce(Appendix_Step.getX(), 1) + "," + MathUtil.reduce(Appendix_Step.getY(), 1) + "," + MathUtil.reduce(Appendix_Step.getX(), 1) + "," + MathUtil.reduce(mask.pos.getY(), 1);
+		}
+		return "";
 	}
 	
 	public void update(){

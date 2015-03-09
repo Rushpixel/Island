@@ -4,9 +4,9 @@ import java.net.InetSocketAddress;
 
 import com.endoplasmdoesthiswork.StateNode;
 
-public class PlayerList extends StateNode {
+public class ServerPlayerList extends StateNode {
 
-	public PlayerList(StateNode parent) {
+	public ServerPlayerList(StateNode parent) {
 		super(parent, "P");
 	}
 	
@@ -35,6 +35,7 @@ public class PlayerList extends StateNode {
 			ServerPlayer p = new ServerPlayer(this, username, address);
 			children.add(p);
 			System.out.println("[SERVER] Player " + username + " joined");
+			System.out.println(getChild(username).name);
 			return "";
 		}
 	}

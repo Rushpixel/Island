@@ -27,22 +27,22 @@ public class NetworkUtil {
 		return Send(c, address, b);
 	}
 
-	public static Message[] Recieve(DatagramChannel c, int capacity) {
+	public static Message[] Recieve(DatagramChannel c, int capacity, String owner) {
 		try {
 			ArrayList<Message> messagelist = new ArrayList<Message>();
-
+			
 			ByteBuffer b = ByteBuffer.allocate(capacity);
 			SocketAddress lastIN = null;
 			while ((lastIN = c.receive(b)) != null) {
 				String in = new String(b.array()).trim();
 				String s[] = in.split("%");
-				System.out.println("Recieved UDP " + in);
+				System.out.println("[" + owner + "]Recieved UDP " + in);
 				if (s.length > 1) {
 					for (int i = 1; i < s.length; i++) {
 						messagelist.add(new Message(s[0] + "%" + s[i], (InetSocketAddress) lastIN));
 					}
 				} else messagelist.add(new Message(s[0], (InetSocketAddress) lastIN));
-				b.clear();
+				 b = ByteBuffer.allocate(capacity);
 			}
 			Message[] m = new Message[messagelist.size()];
 			messagelist.toArray(m);

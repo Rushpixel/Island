@@ -48,6 +48,7 @@ public class Game extends GInit {
 			camera.update();
 			Client.getPackets();
 			StateNode.updateFrom(clientgraph);
+			Client.sendPackets();
 		}
 	}
 

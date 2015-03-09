@@ -62,6 +62,11 @@ public abstract class StateNode {
 		for (StateNode sn : children) {
 			if (sn.name.equals(name)) return sn;
 		}
+		System.err.println("Parent " + this.name + ", " + this.getClass().getName() + " cannot find child with name " + name + "\nchildren.size() = " + children.size() + "\nHas children");
+		for(StateNode child: children){
+			System.out.print(child.name + ", ");
+		}
+		System.out.println();
 		return null;
 	}
 

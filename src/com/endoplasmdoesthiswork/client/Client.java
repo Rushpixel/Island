@@ -8,6 +8,7 @@ import java.nio.channels.DatagramChannel;
 import com.endoplasmdoesthiswork.Game;
 import com.endoplasmdoesthiswork.Message;
 import com.endoplasmdoesthiswork.NetworkUtil;
+import com.endoplasmdoesthiswork.server.ServerPlayer;
 
 public class Client {
 
@@ -57,7 +58,7 @@ public class Client {
 	}
 
 	public static void getPackets() {
-		Message[] incoming = NetworkUtil.Recieve(channel, 400);
+		Message[] incoming = NetworkUtil.Recieve(channel, 400, "CLIENT");
 		if (incoming.length > 0) lastPacket = incoming[0].HEADER + "%" + incoming[0].DATA;
 		for (Message m : incoming) {
 			// System.out.println("[CLIENT] " + m.HEADER + "%" + m.DATA);
@@ -82,6 +83,14 @@ public class Client {
 				}
 			}
 			}
+		}
+	}
+	
+	public static void sendPackets(){
+		String send = Game.clientgraph.Transmit(HOST);
+		if (!send.equals("")) {
+			// System.out.println("About to send command " + send);
+			NetworkUtil.Send(channel, HOST, "S%" + send);
 		}
 	}
 

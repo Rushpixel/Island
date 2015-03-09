@@ -105,7 +105,7 @@ public class Server implements Runnable {
 	}
 
 	private void getPackets() {
-		Message[] incoming = NetworkUtil.Recieve(channel, 400);
+		Message[] incoming = NetworkUtil.Recieve(channel, 400, "SERVER");
 		if (incoming.length > 0) lastPacket = incoming[0].HEADER + "%" + incoming[0].DATA;
 		for (Message m : incoming) {
 			switch (m.HEADER) {
@@ -115,7 +115,19 @@ public class Server implements Runnable {
 					NetworkUtil.Send(channel, m.from, "PERMISSION%" + home.island.seed + "%");
 				}
 				break;
+			case "S": {
+				try {
+					String[] loccom = m.DATA.split(":")[0].split("@");
+					String args = m.DATA.split(":")[1];
+					home.Recieve(loccom, args, m.from);
+				} catch (Exception e) {
+					System.err.println("Bad StateNode Packet with DATA: " + m.DATA);
+					e.printStackTrace();
+				}
+				break;
 			}
+			}
+			
 		}
 	}
 

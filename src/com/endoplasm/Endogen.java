@@ -110,7 +110,7 @@ public class Endogen {
 	 */
 	private void createDisplay() {
 		try {
-			Display.setDisplayMode(new DisplayMode(512 * 3, 288 * 3));
+			Display.setDisplayMode(new DisplayMode(512 * 1, 288 * 1));
 			Display.setVSyncEnabled(false);
 			Display.setResizable(true);
 			Display.setTitle("RPG");

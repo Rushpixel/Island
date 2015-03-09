@@ -18,7 +18,7 @@ public class Fish extends StateNode {
 	public boolean sendPos = true;
 	Random r = new Random();
 
-	// arraylist containing the last data to be sent to a player. Each item is a player in form <InetSocketAddress>#PV(X,Y,Xspeed,Yspeed)
+	// arraylist containing the last data to be sent to a player. Each item is a player in form <InetSocketAddress>#X,Y,Xspeed,Yspeed
 	public ArrayList<String> Appendix = new ArrayList<String>();
 	public String currentState;
 
